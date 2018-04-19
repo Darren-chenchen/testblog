@@ -13,8 +13,15 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
 });
-const upload = multer({storage});
+var storageZip = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads')        //文件存储路径
+    },
+    filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+})
 
+const upload = multer({storage});
+const uploadZip = multer({storage: storageZip});
 
 // 统一返回格式
 var responseData;
@@ -162,6 +169,19 @@ router.post('/user/mutiablePic',upload.array('file', 5), (req, res, next) => {
             arr.push({'imageUrl': item.filename})
         })
         responseData.data = arr
+        res.json(responseData)
+    }
+})
+
+router.post('/uploadzip', uploadZip.single('file'), function(req, res) {
+    if (!req.file) {
+        responseData.success = false
+        responseData.message = '上传失败'
+        res.json(responseData)
+    } else {
+        responseData.success = true
+        responseData.message = '上传成功'
+        responseData.data = req.file.filename
         res.json(responseData)
     }
 })

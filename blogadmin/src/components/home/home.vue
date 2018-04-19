@@ -8,7 +8,7 @@
         </el-breadcrumb>
         <button class="loginout" @click="loginout">退出登录</button>
         <button class="writeArticle" @click="writeArticle">写文章</button>
-        <!--<button class="worksBtn" @click="pulishWorks">发布作品</button>-->
+        <button class="worksBtn" @click="pulishWorks">发布作品</button>
 
       </el-header>
       <el-container>
