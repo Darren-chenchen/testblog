@@ -7,6 +7,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var jwt = require('express-jwt');
 
+app.use(express.static('uploads'))
+
 // token相关regiest和login不需要token验证
 var jwt = require('express-jwt');
 app.use(jwt({secret: 'jwt-secret', debug: true}).unless({
