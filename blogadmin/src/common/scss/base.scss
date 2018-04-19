@@ -1,0 +1,44 @@
+@import "./reset";
+
+$paleGrey: rgb(244, 245, 247);
+$black: rgb(41, 44, 64);
+
+$warmgrey: rgb(163, 166, 178);
+$grey: rgb(106, 110, 121);
+$aquaMarine: rgb(51, 223, 183);
+$softBlue: rgb(61, 155, 251);
+$coolGrey: rgb(163, 166, 178);
+$mango: rgb(251, 160, 56);
+$paleGreyTwo: rgb(232, 233, 238);
+$coral: rgb(251, 78, 60);
+
+body {
+  background: $paleGrey;
+  margin: 0;
+  padding: 0;
+}
+
+// 一行，多余显示....
+.nowrap {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.cl-input {
+  outline: 0;
+  height: 50px;
+  padding: 0 12px;
+  border-radius: 5px;
+}
+.cl-button {
+  outline: 0;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 5px;
+  border-color: transparent;
+}
+
+
+
+
