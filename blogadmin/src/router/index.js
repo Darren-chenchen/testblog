@@ -8,6 +8,8 @@ import ArticleMain from '../components/article/articleMain.vue'
 import WriteArticle from '../components/article/writeArticle.vue'
 import ArticleDetail from '../components/article/articleDetail.vue'
 import DraftList from '../components/article/draftList.vue'
+import PulishWork from '../components/article/pulishWork.vue'
+import WorkMgr from '../components/article/worksMgr.vue'
 
 Vue.use(Router)
 
@@ -44,6 +46,11 @@ export default new Router({
           path: '/draftList',
           name: 'DraftList',
           component: DraftList
+        },
+        {
+          path: '/workMgr',
+          name: 'WorkMgr',
+          component: WorkMgr
         }
       ]
     },
@@ -51,6 +58,11 @@ export default new Router({
       path: '/writeArticle',
       name: 'WriteArticle',
       component: WriteArticle
+    },
+    {
+      path: '/pulishWork',
+      name: 'PulishWork',
+      component: PulishWork
     }
   ]
 })

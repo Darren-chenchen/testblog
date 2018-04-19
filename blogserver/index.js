@@ -21,6 +21,7 @@ app.use(bodyParser.json())
 app.use('/user',require('./routers/user'));
 app.use('/admin',require('./routers/admin'));
 app.use('/article',require('./routers/article'));
+app.use('/works',require('./routers/works'));
 
 // 加载数据库模块
 const mongoose = require("mongoose");
