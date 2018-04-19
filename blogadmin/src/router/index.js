@@ -4,6 +4,10 @@ import AdminHome from '../components/home/home.vue'
 import Login from '../components/login/login.vue'
 import UserList from '../components/user/userList.vue'
 import CreatUser from '../components/user/createUser.vue'
+import ArticleMain from '../components/article/articleMain.vue'
+import WriteArticle from '../components/article/writeArticle.vue'
+import ArticleDetail from '../components/article/articleDetail.vue'
+import DraftList from '../components/article/draftList.vue'
 
 Vue.use(Router)
 
@@ -26,8 +30,27 @@ export default new Router({
         {
           path: '/creatUser',
           component: CreatUser
+        },
+        {
+          path: '/article',
+          component: ArticleMain
+        },
+        {
+          path: '/detail/:id',
+          name: 'ArticleDetail',
+          component: ArticleDetail
+        },
+        {
+          path: '/draftList',
+          name: 'DraftList',
+          component: DraftList
         }
       ]
+    },
+    {
+      path: '/writeArticle',
+      name: 'WriteArticle',
+      component: WriteArticle
     }
   ]
 })

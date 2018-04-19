@@ -7,6 +7,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var jwt = require('express-jwt');
 
+app.use(express.static('uploads'))
+
 // token相关regiest和login不需要token验证
 var jwt = require('express-jwt');
 app.use(jwt({secret: 'jwt-secret', debug: true}).unless({
@@ -18,7 +20,7 @@ app.use(bodyParser.json())
 
 app.use('/user',require('./routers/user'));
 app.use('/admin',require('./routers/admin'));
-
+app.use('/article',require('./routers/article'));
 
 // 加载数据库模块
 const mongoose = require("mongoose");
