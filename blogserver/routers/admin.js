@@ -5,6 +5,17 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 var moment = require('moment');
 
+// 上传图片相关
+var multer  = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+});
+const upload = multer({storage});
+
+
 // 统一返回格式
 var responseData;
 router.use((req, res, next) => {
@@ -122,4 +133,37 @@ router.post('/user/userList', (req, res, next) => {
 
     }
 })
+// 上传图片 单图
+router.post('/user/pulishArticle',upload.single('file'), (req, res, next) => {
+    if (!req.file) {
+        responseData.success = false
+        responseData.message = '上传失败'
+        res.json(responseData)
+    } else {
+        responseData.success = true
+        responseData.message = '上传成功'
+        responseData.data = {
+            'imageUrl': req.file.filename
+        }
+        res.json(responseData)
+    }
+})
+// 上传图片 多图
+router.post('/user/mutiablePic',upload.array('file', 5), (req, res, next) => {
+    if (!req.files[0]) {
+        responseData.success = false
+        responseData.message = '上传失败'
+        res.json(responseData)
+    } else {
+        responseData.success = true
+        responseData.message = '上传成功'
+        let arr = []
+        req.files.forEach((item) => {
+            arr.push({'imageUrl': item.filename})
+        })
+        responseData.data = arr
+        res.json(responseData)
+    }
+})
+
 module.exports = router;
