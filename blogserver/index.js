@@ -12,8 +12,18 @@ app.use(express.static('uploads'))
 // token相关regiest和login不需要token验证
 var jwt = require('express-jwt');
 app.use(jwt({secret: 'jwt-secret', debug: true}).unless({
-    path: ['/user/regiest', '/user/login', '/admin/login']
+    path: ['/user/regiest', '/user/login', '/admin/login', '/works/list', '/works/detail']
 }))
+
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        if (req.path.indexOf("/tourist") != -1 || req.path.indexOf("/static") != -1) {
+            next()
+        } else {
+            res.status(401).send('invalid token...');
+        }
+    }
+});
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -22,6 +32,8 @@ app.use('/user',require('./routers/user'));
 app.use('/admin',require('./routers/admin'));
 app.use('/article',require('./routers/article'));
 app.use('/works',require('./routers/works'));
+app.use('/tourist',require('./routers/tourist'));
+app.use('/comment',require('./routers/comment'));
 
 // 加载数据库模块
 const mongoose = require("mongoose");
