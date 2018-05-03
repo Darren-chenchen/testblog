@@ -62,7 +62,7 @@
           this.$message.error('请输入图片地址')
           return
         }
-        this.$emit('uploadSuccess', this.imageUrl)
+        this.$emit('uploadSuccess', [this.imageUrl])
       }
     }
   }
