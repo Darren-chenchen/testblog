@@ -1,6 +1,6 @@
 <template>
   <div class="regiest-wrapper" v-show="this.showregiest" @click="clickwrapper">
-    <div class="contentwrapper" @click.stop="clickContent">
+    <div class="contentwrapper" @click.stop="true">
       <el-input v-model="userName" class="userName" placeholder="请输入用户名"></el-input>
       <el-input v-model="passWord" class="pwd" placeholder="请输入密码" type="password"></el-input>
       <el-input v-model="repassWord" class="pwd" placeholder="请再次输入密码" type="password"></el-input>
@@ -46,7 +46,6 @@
         this.showLoading = true
         register(body).then((res) => {
           this.showLoading = false
-          this.$message.success(res.message)
           this.$emit('regiestSuccess')
         }, reject => {
           this.showLoading = false
@@ -54,8 +53,7 @@
       },
       clickwrapper() {
         this.$emit('dismiss')
-      },
-      clickContent() {}
+      }
     }
   }
 </script>

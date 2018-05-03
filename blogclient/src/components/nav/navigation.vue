@@ -9,7 +9,7 @@
       </ul>
     </div>
     <div class="right-navwrapper">
-      <div v-if="!this.userInfo">
+      <div v-if="!this.userInfo || !this.userInfo.userId">
         <p class="login" @click="login">登录</p>
         <p class="regist" @click="regiest">立即注册</p>
       </div>
@@ -20,8 +20,8 @@
 
     </div>
 
-    <login :showlogin="showlogin" @loginSuccess="loginSuccess" @dismiss="dismiss"></login>
-    <regiest :showregiest="showregiest" @regiestSuccess="regiestSuccess" @dismiss="dismiss"></regiest>
+    <login v-if="showlogin" :showlogin="showlogin" @loginSuccess="loginSuccess" @dismiss="dismiss"></login>
+    <regiest v-if="showregiest" :showregiest="showregiest" @regiestSuccess="regiestSuccess" @dismiss="dismiss"></regiest>
   </div>
 </template>
 
@@ -96,7 +96,9 @@
       },
       loginSuccess() {
         this.showlogin = false
-        this.userInfo = getUserInfo()
+        if (getUserInfo()) {
+          this.userInfo = getUserInfo()
+        }
       },
       loginout() {
         removeUserInfo()
@@ -109,10 +111,19 @@
       }
     },
     created() {
+      this.bus.$on('loginoverdue', () => {
+        removeUserInfo()
+        TokenMgr.clearTokens()
+        this.userInfo = getUserInfo()
+        this.showlogin = true
+      })
       this.userInfo = getUserInfo()
       if (this.$route.fullPath.indexOf('/mywork') !== -1) {
         this.currentItem = '我的作品'
       }
+    },
+    destroyed() {
+      this.bus.$off('loginoverdue')
     }
   }
 </script>
@@ -135,7 +146,6 @@
     height: 100%;
     display: inline-block;
     overflow: hidden;
-    min-width: 320px;
   }
   .navItem {
     width: 25%;
@@ -178,7 +188,15 @@
 
   @media only screen and (max-width: 617px) {
     .left-navwrapper {
-      width: 100%;
+      width: 300px;
+    }
+  }
+  @media only screen and (max-width: 445px) {
+    .left-navwrapper {
+      width: 200px;
+    }
+    .navItem {
+      width: 40%;
     }
   }
 </style>
